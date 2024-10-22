@@ -2,13 +2,7 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import ProtectRoute from "@/components/ProtectRoute";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { API_KEY, BASE_URL, END_POINT } from "@/helper/endpoint";
 import axios from "axios";
 import Image from "next/image";
@@ -41,6 +35,7 @@ export default function Home(props) {
         <h1 className="p-10 text-5xl text-center font-base">
           Halaman List Menu
         </h1>
+
         <div className="flex flex-wrap justify-center gap-10 pb-10">
           {foods.map((food) => (
             <Card key={food.id} className="relative bg-bg w-[350px]">
