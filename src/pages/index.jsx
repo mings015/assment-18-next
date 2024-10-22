@@ -1,6 +1,17 @@
+import Footer from "@/components/Footer";
+import Header from "@/components/Header";
 import ProtectRoute from "@/components/ProtectRoute";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { API_KEY, BASE_URL, END_POINT } from "@/helper/endpoint";
 import axios from "axios";
+import Image from "next/image";
 import Link from "next/link";
 
 export async function getServerSideProps() {
@@ -25,20 +36,39 @@ export default function Home(props) {
   const { foods } = props;
   return (
     <ProtectRoute>
+      <Header />
       <div>
-        <h1>Halo</h1>
-        {foods.map((food) => (
-          <div key={food.id}>
-            <p>{food.name}</p>
-            <Link
-              href={`/${food.id}`}
-              className="inline-block mt-2 text-blue-600 hover:text-blue-800"
-            >
-              View Details →
-            </Link>
-          </div>
-        ))}
+        <h1 className="p-10 text-5xl text-center font-base">
+          Halaman List Menu
+        </h1>
+        <div className="flex flex-wrap justify-center gap-10 pb-10">
+          {foods.map((food) => (
+            <Card key={food.id} className="relative bg-bg w-[350px]">
+              <CardHeader>
+                <CardTitle>
+                  <div className="container mb-5 bg-black border-2 border-border rounded-base shadow-light">
+                    <Image
+                      width={500}
+                      height={500}
+                      src={food.imageUrl}
+                      priority={true}
+                      className="w-full aspect-square"
+                      alt={`Picture of ${food.name}`}
+                    />
+                  </div>
+                </CardTitle>
+                <CardTitle>{food.name}</CardTitle>
+              </CardHeader>
+              <CardFooter>
+                <Link href={`/${food.id}`}>
+                  <Button>Details</Button>
+                </Link>
+              </CardFooter>
+            </Card>
+          ))}
+        </div>
       </div>
+      <Footer />
     </ProtectRoute>
   );
 }
