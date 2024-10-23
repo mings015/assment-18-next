@@ -1,6 +1,5 @@
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import ProtectRoute from "@/components/ProtectRoute";
 import { Button } from "@/components/ui/button";
 import { Card, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { API_KEY, BASE_URL, END_POINT } from "@/helper/endpoint";
@@ -28,8 +27,9 @@ export async function getServerSideProps() {
 
 export default function Home(props) {
   const { foods } = props;
+
   return (
-    <ProtectRoute>
+    <>
       <Header />
       <div>
         <h1 className="p-10 text-5xl text-center font-base">
@@ -55,7 +55,7 @@ export default function Home(props) {
                 <CardTitle>{food.name}</CardTitle>
               </CardHeader>
               <CardFooter>
-                <Link href={`/${food.id}`}>
+                <Link href={`/detail/${food.id}`}>
                   <Button>Details</Button>
                 </Link>
               </CardFooter>
@@ -64,6 +64,6 @@ export default function Home(props) {
         </div>
       </div>
       <Footer />
-    </ProtectRoute>
+    </>
   );
 }

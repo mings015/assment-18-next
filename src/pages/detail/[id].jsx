@@ -1,15 +1,13 @@
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import ProtectRoute from "@/components/ProtectRoute";
 import { Button } from "@/components/ui/button";
 import {
   Card,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { formatDate } from "@/helper/convertTime";
+import { FORMAT_DATE } from "@/helper/convertTime";
 import { API_KEY, BASE_URL, END_POINT } from "@/helper/endpoint";
 import axios from "axios";
 import Image from "next/image";
@@ -28,11 +26,13 @@ export async function getServerSideProps({ query }) {
       header
     );
     const food = await res.data.data;
-    console.log(food);
 
     return { props: { food } };
   } catch (error) {
     console.error("Failed to fetch foods:", error);
+    return {
+      notFound: true,
+    };
   }
 }
 
@@ -40,7 +40,7 @@ const DetailMenu = (props) => {
   const { food } = props;
 
   return (
-    <ProtectRoute>
+    <>
       <Header />
       <div className="container mx-auto">
         <Link href="/">
@@ -68,13 +68,13 @@ const DetailMenu = (props) => {
             </CardTitle>
             <CardTitle>{food.name}</CardTitle>
             <CardDescription>
-              Dibuat : {formatDate(food.createdAt)}
+              Dibuat : {FORMAT_DATE(food.createdAt)}
             </CardDescription>
           </CardHeader>
         </Card>
       </div>
       <Footer />
-    </ProtectRoute>
+    </>
   );
 };
 

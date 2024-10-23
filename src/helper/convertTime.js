@@ -1,4 +1,4 @@
-export const formatDate = (isoString) => {
+export const FORMAT_DATE = (isoString) => {
   const date = new Date(isoString);
   return date.toLocaleDateString("id-ID", {
     weekday: "long",
